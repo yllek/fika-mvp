@@ -8,23 +8,32 @@ export default class List extends Component {
         {
           name: 'Geisha',
           date: '09/24/2019',
-          description: 'this was really tasty'
+          description: 'this was really tasty',
+          image:
+            'https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG'
+        },
+        {
+          name: 'Colombia',
+          date: '10/2/2019',
+          description: 'I really loved all of the flavors inside',
+          image:
+            'https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG'
         }
       ]
     };
   }
-
-  componentDidMount() {
-    console.log(this.state, 'coffees');
+  addToFavorites() {
+    console.log('favorited');
   }
+  componentDidMount() {}
 
   render() {
     return (
-      <div className='list'>
+      <div className='list' key='List'>
         {this.state.coffees.map(card => {
           return (
             <div key={card.id}>
-              <Card card={card} />
+              <Card card={card} addToFavorites={this.addToFavorites} />
             </div>
           );
         })}

@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-var ReviewCard = ({ card }) => {
+var ReviewCard = ({ card, addToFavorites }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   // console.log(props);
@@ -53,19 +53,17 @@ var ReviewCard = ({ card }) => {
       <CardHeader title={card.name} subheader={card.date} />
       <CardMedia
         className={classes.media}
-        image='/static/images/cards/paella.jpg'
-        title='Paella dish'
+        image={card.image}
+        title={card.name}
       />
       <CardContent>
         <Typography variant='body2' color='textSecondary' component='p'>
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {card.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label='add to favorites'>
-          <FavoriteIcon />
+          <FavoriteIcon onClick={addToFavorites} />
         </IconButton>
         <IconButton aria-label='share'>
           <ShareIcon />
