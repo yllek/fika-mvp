@@ -39,30 +39,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function RecipeReviewCard() {
+var ReviewCard = ({ card }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
+  // console.log(props);
+  // console.log(this.props.card);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   return (
     <Card className={classes.card}>
-      <CardHeader
-        // avatar={
-        //   <Avatar aria-label='recipe' className={classes.avatar}>
-        //     R
-        //   </Avatar>
-        // }
-        // action={
-        //   <IconButton aria-label='settings'>
-        //     <MoreVertIcon />
-        //   </IconButton>
-        // }
-        title='Shrimp and Chorizo Paella'
-        subheader='September 14, 2016'
-      />
+      <CardHeader title={card.name} subheader={card.date} />
       <CardMedia
         className={classes.media}
         image='/static/images/cards/paella.jpg'
@@ -125,4 +113,5 @@ export default function RecipeReviewCard() {
       </Collapse>
     </Card>
   );
-}
+};
+export default ReviewCard;
