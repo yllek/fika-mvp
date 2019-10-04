@@ -53,7 +53,7 @@ var ReviewCard = ({ card, addToFavorites }) => {
       <CardHeader title={card.name} subheader={card.date} />
       <CardMedia
         className={classes.media}
-        image={card.image}
+        image={card.photo}
         title={card.name}
       />
       <CardContent>
@@ -80,7 +80,6 @@ var ReviewCard = ({ card, addToFavorites }) => {
       </CardActions>
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         <CardContent>
-          <Typography paragraph>What else I liked:</Typography>
           <Typography paragraph>{card.long_description}</Typography>
         </CardContent>
       </Collapse>

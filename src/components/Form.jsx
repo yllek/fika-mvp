@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 const { API_KEY } = require('../config');
 const client = filestack.init(API_KEY);
+import axios from 'axios';
 
 import {
   Dialog,
@@ -33,7 +34,7 @@ const defaultForm = {
   name: '',
   date: '',
   description: '',
-  photos: []
+  photo: ''
 };
 
 const InputForm = () => {
@@ -58,52 +59,53 @@ const InputForm = () => {
     setOpen(true);
   };
 
-  const handleUpload = event => {
-    event.preventDefault();
-    let photos = [];
-    let process = uploadData => {
-      let allPhotos = uploadData.filesUploaded;
-      for (let i = 0; i < allPhotos.length; i++) {
-        photos.push(allPhotos[i].url);
-      }
-      this.setState({
-        photos: photos
-      });
-    };
-    const options = {
-      maxFiles: 5,
-      accept: [
-        'image/jpeg',
-        'image/jpg',
-        'image/png',
-        'image/bmp',
-        'image/gif',
-        'application/pdf'
-      ],
-      storeTo: {
-        container: 'devportal-customers-assets',
-        path: 'user-uploads/',
-        region: 'us-east-1'
-      },
-      fromSources: ['local_file_system'],
-      uploadInBackground: false,
-      onUploadDone: process
-    };
-  };
+  // const handleUpload = event => {
+  //   event.preventDefault();
+  //   let photos = [];
+  //   let process = uploadData => {
+  //     let allPhotos = uploadData.filesUploaded;
+  //     for (let i = 0; i < allPhotos.length; i++) {
+  //       photos.push(allPhotos[i].url);
+  //     }
+  //     this.setState({
+  //       photos: photos
+  //     });
+  //   };
+  //   const options = {
+  //     maxFiles: 5,
+  //     accept: [
+  //       'image/jpeg',
+  //       'image/jpg',
+  //       'image/png',
+  //       'image/bmp',
+  //       'image/gif',
+  //       'application/pdf'
+  //     ],
+  //     storeTo: {
+  //       container: 'devportal-customers-assets',
+  //       path: 'user-uploads/',
+  //       region: 'us-east-1'
+  //     },
+  //     fromSources: ['local_file_system'],
+  //     uploadInBackground: false,
+  //     onUploadDone: process
+  //   };
+  // };
 
   const submitForm = form => {
-    //do something in here
     axios({
       method: 'post',
-      url: `http://localhost:3000/submit`,
+      url: `http://localhost:3000/mongo`,
       data: {
         name: form.name,
         date: form.date,
         description: form.description,
-        photos: form.photos
+        photo: form.photo,
+        long_description: form.long_description
       }
     })
       .then(data => {
+        console.log('SUCCESS');
         setSuccess(true);
       })
       .catch(err => {
@@ -112,7 +114,7 @@ const InputForm = () => {
       });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = form => {
     submitForm(form);
   };
 
@@ -156,7 +158,7 @@ const InputForm = () => {
                 <TextField
                   id='date'
                   label='When did you have it?'
-                  placeholder={new Date()}
+                  placeholder='10/4/2019'
                   fullWidth
                   onChange={handleChange.bind(this)}
                   value={form.date}
@@ -166,25 +168,35 @@ const InputForm = () => {
                   id='description'
                   fullWidth
                   label='What did it taste like?'
-                  inputProps={{ maxLength: 150 }}
+                  inputProps={{ maxLength: 200 }}
                   placeholder='Like a sweet white peach on a warm summer day'
                   onChange={handleChange.bind(this)}
                   value={form.description}
                   name='description'
                 />
                 <TextField
-                  id='long-description'
+                  id='long_description'
                   fullWidth
                   label='What else did you really like about it?'
-                  inputProps={{ maxLength: 150 }}
-                  placeholder='Something something something'
+                  inputProps={{ maxLength: 200 }}
+                  placeholder=''
                   onChange={handleChange.bind(this)}
-                  value={form.description}
+                  value={form.long_description}
                   name='long_description'
                 />
-                <Button className={classes.button} onClick={handleOpen}>
+                <TextField
+                  id='images'
+                  fullWidth
+                  label='Add your image url here'
+                  inputProps={{ maxLength: 2000 }}
+                  placeholder='http://hackreactor.com'
+                  onChange={handleChange.bind(this)}
+                  value={form.photo}
+                  name='photo'
+                />
+                {/* <Button className={classes.button} onClick={handleOpen}>
                   Open the select
-                </Button>
+                </Button> */}
                 {/* <FormControl className={classes.formControl}>
                   <InputLabel htmlFor='demo-controlled-open-select'>
                     Age
@@ -207,7 +219,7 @@ const InputForm = () => {
                     <MenuItem value={30}>Thirty</MenuItem>
                   </Select>
                 </FormControl> */}
-                <button onClick={handleUpload}>Upload Photos</button>
+                {/* <button onClick={handleUpload}>Upload Photos</button> */}
               </form>
             </DialogContent>
             <DialogActions>
@@ -217,9 +229,9 @@ const InputForm = () => {
                 </button>
                 <button
                   onClick={e => {
-                    console.alert('submitted');
+                    console.log('submitted');
                     event.preventDefault();
-                    handleSubmit();
+                    handleSubmit(form);
                   }}>
                   Submit
                 </button>

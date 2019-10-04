@@ -36,7 +36,7 @@ MongoClient.connect(
               date: req.body.date,
               description: req.body.description,
               long_description: req.body.long_description,
-              photos: req.body.photos
+              photo: req.body.photo
             })
             .then(data => {
               res.sendStatus(201);

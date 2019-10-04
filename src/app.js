@@ -3,6 +3,8 @@ import { hot } from 'react-hot-loader';
 import InputForm from './components/Form.jsx';
 import List from './components/List.jsx';
 import { Typography } from '@material-ui/core';
+import SimpleMap from './components/SimpleMap.jsx';
+
 class App extends React.Component {
   render() {
     return (
