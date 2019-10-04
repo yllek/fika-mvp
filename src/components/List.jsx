@@ -1,34 +1,45 @@
 import React, { Component } from 'react';
 import Card from './Card.jsx';
+import axios from 'axios';
 
 export default class List extends Component {
   constructor(props) {
     super(props);
     this.state = {
       coffees: [
-        {
-          name: 'Geisha',
-          date: '09/24/2019',
-          description: 'this was really tasty',
-          long_description: 'this was extra good',
-          image:
-            'https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG'
-        },
-        {
-          name: 'Colombia',
-          date: '10/2/2019',
-          description: 'I really loved all of the flavors inside',
-          long_description: 'this sucked and I hated it',
-          image:
-            'https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG'
-        }
+        // {
+        //   name: 'Geisha',
+        //   date: '09/24/2019',
+        //   description: 'this was really tasty',
+        //   long_description: 'this was extra good',
+        //   image:
+        //     'https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG'
+        // },
+        // {
+        //   name: 'Colombia',
+        //   date: '10/2/2019',
+        //   description: 'I really loved all of the flavors inside',
+        //   long_description: 'this sucked and I hated it',
+        //   image:
+        //     'https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG'
+        // }
       ]
     };
   }
   addToFavorites() {
     console.log('favorited');
   }
-  componentDidMount() {}
+  componentDidMount() {
+    axios
+      .get('http://localhost:3000/mongo')
+      .then(data => {
+        console.log(data.data);
+        this.setState({ coffees: data.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 
   render() {
     return (

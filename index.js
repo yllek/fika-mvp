@@ -16,8 +16,14 @@ MongoClient.connect(
     const db = client.db('coffeehub');
     console.log('connected to database');
     app.get('/mongo', (req, res) => {
-      res.send('this is working');
+      db.collection('coffeehub')
+        .find()
+        .toArray()
+        .then(data => {
+          res.send(data);
+        });
     });
+
     app.post('/mongo', (req, res) => {
       console.log('post request to mongo');
       db.collection('coffeehub')
