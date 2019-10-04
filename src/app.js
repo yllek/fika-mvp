@@ -9,10 +9,12 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Typography variant='h5' component='h2'>
-          COFFEE HUB
+        <Typography variant='h2' component='h2'>
+          <center>COFFEE HUB</center>
         </Typography>
-        <InputForm />
+        <center>
+          <InputForm />
+        </center>
         <List />
       </div>
     );

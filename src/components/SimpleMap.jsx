@@ -4,12 +4,14 @@ import Marker from './Marker.jsx';
 
 const SimpleMap = ({ each }) => {
   const [center, setCenter] = useState({ lat: 40.71086, lng: -74.00732 });
-  const [zoom, setZoom] = useState(11);
+  const [zoom, setZoom] = useState(14);
 
   const createMarkers = markerslist => {
     return markerslist.map(each => {
       console.log(each);
-      return <Marker lat={each.lat} lng={each.lng} text={each.text} />;
+      return (
+        <Marker lat={each.latitude} lng={each.longitude} text={each.text} />
+      );
     });
   };
   return (

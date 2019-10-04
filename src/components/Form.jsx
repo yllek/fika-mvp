@@ -101,7 +101,8 @@ const InputForm = () => {
         date: form.date,
         description: form.description,
         photo: form.photo,
-        long_description: form.long_description
+        long_description: form.long_description,
+        coordinates: { latitude: form.latitude, longitude: form.longitude }
       }
     })
       .then(data => {
@@ -148,7 +149,7 @@ const InputForm = () => {
                   multiline
                   inputProps={{ maxLength: 100 }}
                   fullWidth
-                  label='name'
+                  label='Name'
                   placeholder='Moseph Jartin Reserve'
                   onChange={handleChange.bind(this)}
                   value={form.name}
@@ -193,6 +194,26 @@ const InputForm = () => {
                   onChange={handleChange.bind(this)}
                   value={form.photo}
                   name='photo'
+                />
+                <TextField
+                  id='latitude'
+                  fullWidth
+                  label='Latitude'
+                  inputProps={{ maxLength: 2000 }}
+                  placeholder='40.2291'
+                  onChange={handleChange.bind(this)}
+                  value={form.latitude}
+                  name='latitude'
+                />
+                <TextField
+                  id='longitude'
+                  fullWidth
+                  label='Longitude'
+                  inputProps={{ maxLength: 2000 }}
+                  placeholder='33.9990'
+                  onChange={handleChange.bind(this)}
+                  value={form.longitude}
+                  name='longitude'
                 />
                 {/* <Button className={classes.button} onClick={handleOpen}>
                   Open the select

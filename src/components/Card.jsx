@@ -42,8 +42,6 @@ const useStyles = makeStyles(theme => ({
 var ReviewCard = ({ card, addToFavorites }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  // console.log(props);
-  // console.log(this.props.card);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };

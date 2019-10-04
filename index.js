@@ -36,7 +36,11 @@ MongoClient.connect(
               date: req.body.date,
               description: req.body.description,
               long_description: req.body.long_description,
-              photo: req.body.photo
+              photo: req.body.photo,
+              coordinates: {
+                latitude: req.body.coordinates.latitude,
+                longitude: req.body.coordinates.longitude
+              }
             })
             .then(data => {
               res.sendStatus(201);
