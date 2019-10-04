@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker.jsx';
+import { API_KEY } from './config';
 
 const SimpleMap = ({ each }) => {
   const [center, setCenter] = useState({ lat: 40.71086, lng: -74.00732 });
@@ -17,7 +18,7 @@ const SimpleMap = ({ each }) => {
   return (
     <div style={{ height: '100vh', width: '100%' }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyBwX-nbPm-Axp6pJ94BO-_WRKUYrWe5x9o' }}
+        bootstrapURLKeys={{ key: '{API_KEY}' }}
         defaultCenter={center}
         defaultZoom={zoom}>
         {createMarkers(each)}
