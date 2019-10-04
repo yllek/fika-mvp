@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 const defaultForm = {
   name: '',
   date: '',
-  descritpion: '',
+  description: '',
   photos: []
 };
 
@@ -91,16 +91,29 @@ const InputForm = () => {
     };
   };
 
-  const submitForm = (form, question_id) => {
+  const submitForm = form => {
     //do something in here
+    axios({
+      method: 'post',
+      url: `http://localhost:3000/submit`,
+      data: {
+        name: form.name,
+        date: form.date,
+        description: form.description,
+        photos: form.photos
+      }
+    })
+      .then(data => {
+        setSuccess(true);
+      })
+      .catch(err => {
+        console.log(err);
+        alert('Error occurred when submitting your journal entry');
+      });
   };
 
   const handleSubmit = e => {
-    let errorList = validate(form, 'answer', null);
-    setErrors(errorList);
-    if (!errorList) {
-      submitForm(form, question_id);
-    }
+    submitForm(form);
   };
 
   function handleClickOpen() {
@@ -108,7 +121,7 @@ const InputForm = () => {
   }
   function handleClose() {
     setOpen(false);
-    // setForm(defaultForm);
+    setForm(defaultForm);
     setErrors(false);
     setSuccess(false);
   }
@@ -143,7 +156,7 @@ const InputForm = () => {
                 <TextField
                   id='date'
                   label='When did you have it?'
-                  placeholder='10/04/2019' //today?
+                  placeholder={new Date()}
                   fullWidth
                   onChange={handleChange.bind(this)}
                   value={form.date}
@@ -158,6 +171,16 @@ const InputForm = () => {
                   onChange={handleChange.bind(this)}
                   value={form.description}
                   name='description'
+                />
+                <TextField
+                  id='long-description'
+                  fullWidth
+                  label='What else did you really like about it?'
+                  inputProps={{ maxLength: 150 }}
+                  placeholder='Something something something'
+                  onChange={handleChange.bind(this)}
+                  value={form.description}
+                  name='long_description'
                 />
                 <Button className={classes.button} onClick={handleOpen}>
                   Open the select

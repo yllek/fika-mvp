@@ -5,15 +5,49 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 
-app.use(express.static('./client/dist'));
+app.use(express.static('./dist'));
 app.use(bodyParser.json());
 
-MongoClient.connect('mongodb://localhost/coffeehub', (err, database) => {
-  if (err) return console.log('error', err);
-  db = database.db('coffeehub');
-  console.log('connected!');
+MongoClient.connect(
+  'mongodb://localhost:27017/coffeehub',
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  function(err, client) {
+    if (err) throw err;
+    const db = client.db('coffeehub');
+    console.log('connected to database');
+    app.get('/mongo', (req, res) => {
+      res.send('this is working');
+    });
+    app.post('/mongo', (req, res) => {
+      console.log('post request to mongo');
+      db.collection('coffeehub')
+        .count()
+        .then(count => {
+          db.collection('coffeehub')
+            .insertOne({
+              id: count + 1,
+              name: req.body.name,
+              date: req.body.date,
+              description: req.body.description,
+              long_description: req.body.long_description,
+              photos: req.body.photos
+            })
+            .then(data => {
+              res.sendStatus(201);
+            })
+            .catch(err => {
+              console.log(err);
+              res.sendStatus(500);
+            });
+        })
+        .catch(err => {
+          console.log('error: ', err);
+          res.sendStatus(500);
+        });
+    });
 
-  app.listen(port, () => {
-    console.log('listening on port', port);
-  });
-});
+    app.listen(port, () => {
+      console.log('listening on port', port);
+    });
+  }
+);
