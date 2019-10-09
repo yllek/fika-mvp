@@ -1,37 +1,18 @@
-# empty-project
-
-Empty project.
-
 ## Building and running on localhost
 
 First install dependencies:
-
-```sh
 npm install
-```
 
-To run in hot module reloading mode:
-
-```sh
+To run in hot module reloading mode for development:
 npm start
-```
 
-To create a production build:
-
-```sh
-npm run build-prod
-```
+To create a production build (recommended):
+*npm run build-prod
+*npm run server
 
 To create a development build:
-
-```sh
 npm run build-dev
-```
 
 ## Running
 
-Open the file `dist/index.html` in your browser
-
-## Credits
-
-Made with [createapp.dev](https://createapp.dev/)
+Open the browser to localhost:8080

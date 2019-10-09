@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-const { API_KEY } = require('../config');
-const client = filestack.init(API_KEY);
+// const { API_KEY } = require('../config');
+// const client = filestack.init(API_KEY);
 import axios from 'axios';
 
 import {
@@ -58,40 +58,6 @@ const InputForm = () => {
   const handleOpen = () => {
     setOpen(true);
   };
-
-  // const handleUpload = event => {
-  //   event.preventDefault();
-  //   let photos = [];
-  //   let process = uploadData => {
-  //     let allPhotos = uploadData.filesUploaded;
-  //     for (let i = 0; i < allPhotos.length; i++) {
-  //       photos.push(allPhotos[i].url);
-  //     }
-  //     this.setState({
-  //       photos: photos
-  //     });
-  //   };
-  //   const options = {
-  //     maxFiles: 5,
-  //     accept: [
-  //       'image/jpeg',
-  //       'image/jpg',
-  //       'image/png',
-  //       'image/bmp',
-  //       'image/gif',
-  //       'application/pdf'
-  //     ],
-  //     storeTo: {
-  //       container: 'devportal-customers-assets',
-  //       path: 'user-uploads/',
-  //       region: 'us-east-1'
-  //     },
-  //     fromSources: ['local_file_system'],
-  //     uploadInBackground: false,
-  //     onUploadDone: process
-  //   };
-  // };
-
   const submitForm = form => {
     axios({
       method: 'post',

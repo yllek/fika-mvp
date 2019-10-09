@@ -9,7 +9,7 @@ const SimpleMap = ({ each }) => {
 
   const createMarkers = markerslist => {
     return markerslist.map(each => {
-      console.log(each);
+      console.log(each, 'this is each');
       return (
         <Marker lat={each.latitude} lng={each.longitude} text={each.text} />
       );
