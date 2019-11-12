@@ -8,7 +8,7 @@
   "license": "ISC",
   "scripts": {
     "clean": "rm dist/bundle.js",
-    "build-dev": "webpack -d --mode development",
+    "build-dev": "webpack -d --mode development --watch",
     "build-prod": "webpack -p --mode production",
     "start": "webpack-dev-server --hot --mode development",
     "server": "nodemon index.js"
@@ -30,6 +30,7 @@
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-hot-loader": "^4.12.14",
+    "react-stack-grid": "^0.7.1",
     "typeface-roboto": "0.0.75"
   },
   "devDependencies": {

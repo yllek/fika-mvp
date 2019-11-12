@@ -4,6 +4,7 @@ import InputForm from './components/Form.jsx';
 import List from './components/List.jsx';
 import { Typography } from '@material-ui/core';
 import SimpleMap from './components/SimpleMap.jsx';
+import Box from '@material-ui/core/Box';
 
 class App extends React.Component {
   render() {
@@ -15,7 +16,9 @@ class App extends React.Component {
         <center>
           <InputForm />
         </center>
-        <List />
+        <Box>
+          <List />
+        </Box>
       </div>
     );
   }

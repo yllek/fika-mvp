@@ -52,7 +52,7 @@ var ReviewCard = ({ card, addToFavorites }) => {
       <CardMedia
         className={classes.media}
         image={card.photo}
-        title={card.name}
+        title={card.where}
       />
       <CardContent>
         <Typography variant='body2' color='textSecondary' component='p'>

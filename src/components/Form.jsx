@@ -63,16 +63,18 @@ const InputForm = () => {
       method: 'post',
       url: `http://localhost:3000/mongo`,
       data: {
+        alternative: 'woring',
         name: form.name,
+        where: form.where,
         date: form.date,
         description: form.description,
         photo: form.photo,
         long_description: form.long_description,
-        coordinates: { latitude: form.latitude, longitude: form.longitude }
+        latitude: form.latitude,
+        longitude: form.longitude
       }
     })
       .then(data => {
-        console.log('SUCCESS');
         setSuccess(true);
       })
       .catch(err => {
@@ -122,6 +124,16 @@ const InputForm = () => {
                   name='name'
                 />
                 <br />
+                <TextField
+                  multiline
+                  inputProps={{ maxLength: 100 }}
+                  fullWidth
+                  label='Where did you have it?'
+                  placeholder='Counter Culture Coffee'
+                  onChange={handleChange.bind(this)}
+                  value={form.where}
+                  name='where'
+                />
                 <TextField
                   id='date'
                   label='When did you have it?'
@@ -216,7 +228,6 @@ const InputForm = () => {
                 </button>
                 <button
                   onClick={e => {
-                    console.log('submitted');
                     event.preventDefault();
                     handleSubmit(form);
                   }}>
