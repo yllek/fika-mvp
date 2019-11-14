@@ -25,6 +25,7 @@ MongoClient.connect(
     });
 
     app.post('/mongo', (req, res) => {
+      console.log('mongo post', req);
       db.collection('coffeehub')
         .count()
         .then(count => {
@@ -38,8 +39,8 @@ MongoClient.connect(
               long_description: req.body.long_description,
               photo: req.body.photo,
               coordinates: {
-                latitude: req.body.coordinates.latitude,
-                longitude: req.body.coordinates.longitude,
+                latitude: req.body.latitude,
+                longitude: req.body.longitude,
                 text: req.body.where
               }
             })

@@ -7,17 +7,20 @@ import { Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import GridList from '@material-ui/core/GridList';
 import Container from '@material-ui/core/Container';
+import Checkbox from '@material-ui/core/Checkbox';
 
 export default class List extends Component {
   constructor(props) {
     super(props);
     this.state = {
       coffees: [],
-      coordinates: []
+      coordinates: [],
+      favorites: []
     };
   }
-  addToFavorites() {
+  addToFavorites(a) {
     console.log('favorited'); // TODO: need to add this to your favorites
+    console.log(a, this, 'this is this');
   }
 
   componentDidMount() {
@@ -30,7 +33,6 @@ export default class List extends Component {
         data.data.map(each => {
           this.state.coordinates.push(each.coordinates);
         });
-        console.log('state after everything renders', this.state);
       })
       .catch(err => {
         console.log(err);

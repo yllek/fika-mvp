@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
-// const { API_KEY } = require('../config');
-// const client = filestack.init(API_KEY);
+const { API_KEY } = require('../config');
+const client = filestack.init(API_KEY);
 import axios from 'axios';
+import UploadImage from './UploadImage.jsx';
 
 import {
   Dialog,
@@ -10,6 +11,7 @@ import {
   DialogActions,
   DialogContentText,
   TextField,
+  Checkbox,
   Grid,
   Button,
   Slide,
@@ -34,7 +36,7 @@ const defaultForm = {
   name: '',
   date: '',
   description: '',
-  photo: ''
+  photo: []
 };
 
 const InputForm = () => {
@@ -54,11 +56,46 @@ const InputForm = () => {
       return { ...prevState, [e.target.name]: e.target.value };
     });
   };
+  const handleUpload = event => {
+    // event.preventDefault();
+
+    let photo = [];
+    let process = uploadData => {
+      console.log('uploaded data', uploadData);
+      let allPhotos = uploadData.filesUploaded;
+      for (let i = 0; i < allPhotos.length; i++) {
+        photo.push(allPhotos[i].url);
+      }
+      this.setState({
+        photo: photo
+      });
+    };
+    const options = {
+      maxFiles: 1,
+      accept: [
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/bmp',
+        'image/gif',
+        'application/pdf'
+      ],
+      storeTo: {
+        container: 'devportal-customers-assets',
+        path: 'user-uploads/',
+        region: 'us-east-1'
+      },
+      fromSources: ['local_file_system'],
+      uploadInBackground: false,
+      onUploadDone: process
+    };
+  };
 
   const handleOpen = () => {
     setOpen(true);
   };
   const submitForm = form => {
+    console.log('this is the submitted form', form);
     axios({
       method: 'post',
       url: `http://localhost:3000/mongo`,
@@ -69,6 +106,7 @@ const InputForm = () => {
         date: form.date,
         description: form.description,
         photo: form.photo,
+        features: form.features,
         long_description: form.long_description,
         latitude: form.latitude,
         longitude: form.longitude
@@ -153,7 +191,15 @@ const InputForm = () => {
                   value={form.description}
                   name='description'
                 />
+                <Checkbox
+                  value={form.features}
+                  label='What did it taste like?'
+                  inputProps={{
+                    'aria-label': 'uncontrolled-checkbox'
+                  }}
+                />
                 <TextField
+                  id='description'
                   id='long_description'
                   fullWidth
                   label='What else did you really like about it?'
@@ -163,7 +209,7 @@ const InputForm = () => {
                   value={form.long_description}
                   name='long_description'
                 />
-                <TextField
+                {/* <TextField
                   id='images'
                   fullWidth
                   label='Add your image url here'
@@ -172,7 +218,7 @@ const InputForm = () => {
                   onChange={handleChange.bind(this)}
                   value={form.photo}
                   name='photo'
-                />
+                /> */}
                 <TextField
                   id='latitude'
                   fullWidth
@@ -218,7 +264,10 @@ const InputForm = () => {
                     <MenuItem value={30}>Thirty</MenuItem>
                   </Select>
                 </FormControl> */}
-                {/* <button onClick={handleUpload}>Upload Photos</button> */}
+                <UploadImage
+                  form={form}
+                  handleUpload={handleUpload.bind(this)}
+                />
               </form>
             </DialogContent>
             <DialogActions>
